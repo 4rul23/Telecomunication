@@ -47,7 +47,7 @@ export default function ImageDisplay({
   };
 
   return (
-    <div className="col-span-5 bg-gradient-to-br from-slate-900/50 to-blue-950/30 border-r border-blue-400/10 relative backdrop-blur-xl overflow-hidden">
+    <div className="flex-1 bg-gradient-to-br from-slate-900/50 to-blue-950/30 border-r border-blue-400/10 relative backdrop-blur-xl overflow-hidden">
       <AnimatePresence mode="wait" custom={slideDirection}>
         <motion.div
           key={currentSlide}
@@ -67,32 +67,32 @@ export default function ImageDisplay({
               priority
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-slate-900/30 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-950/20 to-transparent"></div>
 
-            <div className="absolute bottom-10 left-10 right-10">
+            <div className="absolute bottom-8 left-6 right-6">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="space-y-6"
+                className="space-y-4"
               >
-                <div className="flex items-start gap-5">
-                  <div className="text-blue-400 p-3 bg-blue-500/10 rounded-2xl backdrop-blur-lg border border-blue-400/20">
-                    {currentItem.icon}
+                <div className="flex items-start gap-4">
+                  <div className="text-blue-400 p-2.5 bg-blue-500/10 rounded-xl backdrop-blur-lg border border-blue-400/20">
+                    <span className="text-3xl">{currentItem.icon}</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-white leading-tight mb-2" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                    <h3 className="text-lg font-bold text-white leading-tight mb-2" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
                       {currentItem.title}
                     </h3>
-                    <p className="text-sm text-blue-200 font-medium" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                    <p className="text-sm text-blue-200 font-semibold" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
                       {currentItem.category}
                     </p>
                   </div>
                 </div>
 
-                <div className="border border-blue-400/20 p-6 bg-black/60 backdrop-blur-xl rounded-2xl shadow-2xl">
-                  <p className="text-base text-blue-100 leading-relaxed" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                <div className="border-2 border-blue-400/60 p-4 bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl">
+                  <p className="text-sm text-white leading-relaxed font-semibold" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
                     {currentItem.description}
                   </p>
                 </div>
@@ -103,23 +103,27 @@ export default function ImageDisplay({
       </AnimatePresence>
 
       {/* Navigation Arrows */}
-      <div className="absolute top-1/2 left-6 right-6 flex justify-between transform -translate-y-1/2">
-        <motion.button
-          whileHover={{ scale: 1.1, backgroundColor: 'rgba(59, 130, 246, 0.8)' }}
-          whileTap={{ scale: 0.9 }}
-          onClick={onPrevSlide}
-          className="p-4 border border-blue-400/40 bg-black/70 text-blue-300 hover:text-white transition-all duration-300 backdrop-blur-lg rounded-2xl shadow-2xl"
-        >
-          <ChevronLeft size={24} />
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1, backgroundColor: 'rgba(59, 130, 246, 0.8)' }}
-          whileTap={{ scale: 0.9 }}
-          onClick={onNextSlide}
-          className="p-4 border border-blue-400/40 bg-black/70 text-blue-300 hover:text-white transition-all duration-300 backdrop-blur-lg rounded-2xl shadow-2xl"
-        >
-          <ChevronRight size={24} />
-        </motion.button>
+      <div className="absolute top-1/2 left-3 right-3 flex justify-between transform -translate-y-1/2 pointer-events-none">
+        <div className="pointer-events-auto">
+          <motion.button
+            whileHover={{ scale: 1.1, backgroundColor: 'rgba(59, 130, 246, 0.8)' }}
+            whileTap={{ scale: 0.9 }}
+            onClick={onPrevSlide}
+            className="p-2.5 border-2 border-blue-400/60 bg-black/80 text-blue-200 hover:text-white hover:bg-blue-600/30 transition-all duration-300 backdrop-blur-lg rounded-lg shadow-2xl"
+          >
+            <ChevronLeft size={20} />
+          </motion.button>
+        </div>
+        <div className="pointer-events-auto">
+          <motion.button
+            whileHover={{ scale: 1.1, backgroundColor: 'rgba(59, 130, 246, 0.8)' }}
+            whileTap={{ scale: 0.9 }}
+            onClick={onNextSlide}
+            className="p-2.5 border-2 border-blue-400/60 bg-black/80 text-blue-200 hover:text-white hover:bg-blue-600/30 transition-all duration-300 backdrop-blur-lg rounded-lg shadow-2xl"
+          >
+            <ChevronRight size={20} />
+          </motion.button>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Wifi, Signal } from "lucide-react";
 
 export default function TopNavigation({
   currentSection,
@@ -8,59 +8,68 @@ export default function TopNavigation({
   onAutoPlayToggle
 }) {
   return (
-    <div className="relative h-20 bg-gradient-to-r from-black/80 to-slate-900/80 backdrop-blur-xl border-b border-blue-400/20 px-8 flex items-center justify-between">
+    <div className="relative h-14 bg-gradient-to-br from-black/80 to-slate-900/80 backdrop-blur-xl border-b border-blue-400/20 px-4 flex items-center justify-between shadow-lg">
       {/* Logo/Title */}
       <div className="flex items-center gap-4">
-        <div className="text-blue-400 text-2xl">📡</div>
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 bg-blue-500/20 rounded-lg border border-blue-400/30">
+            <Signal className="w-5 h-5 text-blue-400" />
+          </div>
+          <Wifi className="w-4 h-4 text-blue-300 opacity-60" />
+        </div>
         <div>
-          <h1 className="text-xl font-bold text-white" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+          <h1 className="text-lg font-bold text-white tracking-tight" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
             Telekomunikasi Indonesia
           </h1>
-          <p className="text-xs text-blue-300" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-            Eksplorasi Teknologi 5G & MIMO
+          <p className="text-xs text-blue-200/80 font-medium tracking-wide" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+            Exploring Telecommunications Excellence
           </p>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4">
         <div className="flex gap-2">
           <button
             onClick={() => onSectionChange(0)}
-            className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+            className={`px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-lg border ${
               currentSection === 0
-                ? 'bg-blue-500/20 text-blue-300 border border-blue-400/30'
-                : 'text-slate-400 hover:text-blue-300'
+                ? 'bg-blue-500/20 text-white border-blue-400/40 shadow-lg'
+                : 'text-blue-200 hover:text-white hover:bg-slate-800/50 border-blue-400/20 hover:border-blue-400/40'
             }`}
             style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
           >
-            Fakta Teknologi
+            Fun Facts
           </button>
           <button
             onClick={() => onSectionChange(1)}
-            className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+            className={`px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-lg border ${
               currentSection === 1
-                ? 'bg-blue-500/20 text-blue-300 border border-blue-400/30'
-                : 'text-slate-400 hover:text-blue-300'
+                ? 'bg-blue-500/20 text-white border-blue-400/40 shadow-lg'
+                : 'text-blue-200 hover:text-white hover:bg-slate-800/50 border-blue-400/20 hover:border-blue-400/40'
             }`}
             style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
           >
-            Profil Penulis
+            Profil
           </button>
         </div>
 
         {currentSection === 0 && (
+          <div className="h-4 w-px bg-blue-400/20"></div>
+        )}
+
+        {currentSection === 0 && (
           <button
             onClick={onAutoPlayToggle}
-            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg border ${
+            className={`flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg border ${
               isAutoPlay
-                ? 'bg-blue-500/20 text-blue-300 border-blue-400/30'
-                : 'text-slate-400 hover:text-blue-300 border-slate-600/30 hover:border-blue-400/30'
+                ? 'bg-green-500/20 text-green-400 border-green-400/40'
+                : 'text-blue-200 hover:text-white hover:bg-slate-800/50 border-blue-400/20 hover:border-blue-400/40'
             }`}
             style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
           >
-            {isAutoPlay ? <Pause size={16} /> : <Play size={16} />}
-            {isAutoPlay ? 'Pause' : 'Auto Play'}
+            {isAutoPlay ? <Pause size={14} /> : <Play size={14} />}
+            {isAutoPlay ? 'Pause' : 'Play'}
           </button>
         )}
       </div>
