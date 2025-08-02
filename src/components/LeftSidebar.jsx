@@ -81,7 +81,7 @@ export default function LeftSidebar({
                 <div className="w-3 h-3 bg-cyan-400 rounded-full"></div>
                 <div className="w-3 h-3 bg-blue-300 rounded-full"></div>
               </div>
-              <div className="text-sm font-semibold text-blue-300" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+              <div className="text-sm font-semibold text-blue-300" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
                 STATISTIK TELEKOMUNIKASI
               </div>
             </div>
@@ -89,7 +89,7 @@ export default function LeftSidebar({
 
           {/* Telecom Stats */}
           <motion.div variants={itemVariants} className="space-y-2">
-            <div className="text-sm font-semibold text-blue-300 mb-2" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+            <div className="text-sm font-semibold text-blue-300 mb-2" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
               Indonesia Telekomunikasi
             </div>
             {telecomStats.map((stat, index) => {
@@ -105,10 +105,10 @@ export default function LeftSidebar({
                       <IconComponent size={16} />
                     </div>
                     <div className="flex-1">
-                      <div className="text-xs text-blue-200 font-medium" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                      <div className="text-xs text-blue-200 font-medium" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
                         {stat.label}
                       </div>
-                      <div className="text-sm font-bold text-white" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                      <div className="text-sm font-bold text-white" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
                         {stat.value}
                       </div>
                     </div>
@@ -120,7 +120,7 @@ export default function LeftSidebar({
 
           {/* Progress Tracking */}
           <motion.div variants={itemVariants} className="space-y-3">
-            <div className="text-sm font-semibold text-blue-300" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+            <div className="text-sm font-semibold text-blue-300" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
               Progress Eksplorasi
             </div>
             <div className="space-y-2">
@@ -142,7 +142,7 @@ export default function LeftSidebar({
 
           {/* Navigation Dots */}
           <motion.div variants={itemVariants} className="space-y-3">
-            <div className="text-sm font-semibold text-blue-300" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+            <div className="text-sm font-semibold text-blue-300" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
               Navigasi Cepat
             </div>
             <div className="grid grid-cols-3 gap-2">
@@ -165,7 +165,7 @@ export default function LeftSidebar({
           </motion.div>
 
           {/* Footer Info */}
-          <motion.div variants={itemVariants} className="border-t border-blue-400/20 pt-3 text-sm text-blue-400 font-medium" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+          <motion.div variants={itemVariants} className="border-t border-blue-400/20 pt-3 text-sm text-blue-400 font-medium" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
             <div className="flex items-center gap-2">
               <Eye size={14} />
               <span>{currentItem.category}</span>

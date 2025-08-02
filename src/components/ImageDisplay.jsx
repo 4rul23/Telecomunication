@@ -82,17 +82,17 @@ export default function ImageDisplay({
                     <span className="text-3xl">{currentItem.icon}</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-white leading-tight mb-2" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                    <h3 className="text-lg font-bold text-white leading-tight mb-2" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
                       {currentItem.title}
                     </h3>
-                    <p className="text-sm text-blue-200 font-semibold" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                    <p className="text-sm text-blue-200 font-semibold" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
                       {currentItem.category}
                     </p>
                   </div>
                 </div>
 
                 <div className="border-2 border-blue-400/60 p-4 bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl">
-                  <p className="text-sm text-white leading-relaxed font-semibold" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                  <p className="text-sm text-white leading-relaxed font-semibold" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
                     {currentItem.description}
                   </p>
                 </div>

@@ -1,5 +1,5 @@
 "use client";
-import { Play, Pause, Wifi, Signal } from "lucide-react";
+import { Wifi, Signal } from "lucide-react";
 
 export default function TopNavigation({
   currentSection,
@@ -18,10 +18,10 @@ export default function TopNavigation({
           <Wifi className="w-4 h-4 text-blue-300 opacity-60" />
         </div>
         <div>
-          <h1 className="text-lg font-bold text-white tracking-tight" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+          <h1 className="text-lg font-bold text-white tracking-tight" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
             Telekomunikasi Indonesia
           </h1>
-          <p className="text-xs text-blue-200/80 font-medium tracking-wide" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+          <p className="text-xs text-blue-200/80 font-medium tracking-wide" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}>
             Exploring Telecommunications Excellence
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function TopNavigation({
                 ? 'bg-blue-500/20 text-white border-blue-400/40 shadow-lg'
                 : 'text-blue-200 hover:text-white hover:bg-slate-800/50 border-blue-400/20 hover:border-blue-400/40'
             }`}
-            style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}
           >
             Fun Facts
           </button>
@@ -48,30 +48,11 @@ export default function TopNavigation({
                 ? 'bg-blue-500/20 text-white border-blue-400/40 shadow-lg'
                 : 'text-blue-200 hover:text-white hover:bg-slate-800/50 border-blue-400/20 hover:border-blue-400/40'
             }`}
-            style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+            style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace" }}
           >
             Profil
           </button>
         </div>
-
-        {currentSection === 0 && (
-          <div className="h-4 w-px bg-blue-400/20"></div>
-        )}
-
-        {currentSection === 0 && (
-          <button
-            onClick={onAutoPlayToggle}
-            className={`flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg border ${
-              isAutoPlay
-                ? 'bg-green-500/20 text-green-400 border-green-400/40'
-                : 'text-blue-200 hover:text-white hover:bg-slate-800/50 border-blue-400/20 hover:border-blue-400/40'
-            }`}
-            style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
-          >
-            {isAutoPlay ? <Pause size={14} /> : <Play size={14} />}
-            {isAutoPlay ? 'Pause' : 'Play'}
-          </button>
-        )}
       </div>
     </div>
   );
