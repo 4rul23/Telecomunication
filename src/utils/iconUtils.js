@@ -106,3 +106,7 @@ export const getIcon = (iconName, size = 60) => {
   const IconComponent = iconMap[iconName];
   return IconComponent ? <IconComponent size={size} /> : <Network size={size} />;
 };
+
+export const getIconComponent = (iconName) => {
+  return iconMap[iconName] || Network;
+};

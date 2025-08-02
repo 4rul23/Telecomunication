@@ -6,7 +6,7 @@ import TopNavigation from "../components/TopNavigation";
 import LeftSidebar from "../components/LeftSidebar";
 import ImageDisplay from "../components/ImageDisplay";
 import ContentPanel from "../components/ContentPanel";
-import { allFacts } from "../data/factsData-fixed";
+import { allFacts } from "../data/factsData";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -53,13 +53,23 @@ export default function Home() {
   };
 
   const currentItem = allFacts[currentSlide];
-  const sectionTitle = "5G MIMO & PROFESIONAL TELEKOMUNIKASI INDONESIA";
+  const sectionTitle = "Fun Facts Telekomunikasi Indonesia";
+
+  // Safety check
+  if (!currentItem) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-slate-950 to-blue-950 text-white overflow-hidden" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-      {/* Simple Background Effects */}
+    <div className="h-screen w-screen bg-gradient-to-br from-slate-950 to-blue-950 text-white overflow-hidden">
+      {/* Enhanced Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent"></div>
+
+        {/* Subtle floating particles */}
+        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-blue-400/20 rounded-full animate-bounce" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-cyan-400/20 rounded-full animate-bounce" style={{ animationDelay: '4s' }}></div>
       </div>
 
       {/* Top Navigation */}
@@ -71,7 +81,7 @@ export default function Home() {
       />
 
       {/* Main Content */}
-      <div className="relative h-[calc(100vh-5rem)]">
+      <div className="relative h-[calc(100vh-3.5rem)]">
         <AnimatePresence mode="wait">
           {currentSection === 0 ? (
             <motion.div
@@ -80,7 +90,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.6 }}
-              className="grid grid-cols-12 h-full"
+              className="flex h-full gap-0"
             >
               <LeftSidebar
                 currentSlide={currentSlide}
@@ -114,35 +124,55 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8 }}
-              className="h-full bg-gradient-to-br from-black/80 to-slate-900/80 backdrop-blur-xl"
+              transition={{ duration: 0.6 }}
+              className="h-full"
             >
-              <AuthorProfile />
+              <div className="h-full p-6">
+                <div className="bg-slate-900/60 backdrop-blur-lg border border-blue-500/20 rounded-2xl h-full overflow-hidden">
+                  <AuthorProfile />
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Custom CSS */}
-      <style jsx>{`
-        /* Simple scrollbar */
-        ::-webkit-scrollbar {
-          width: 6px;
-        }
+        {/* Simplified CSS */}
+        <style jsx global>{`
+          ::-webkit-scrollbar {
+            width: 6px;
+          }
 
-        ::-webkit-scrollbar-track {
-          background: rgba(15, 23, 42, 0.3);
-        }
+          ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+          }
 
-        ::-webkit-scrollbar-thumb {
-          background: rgba(59, 130, 246, 0.6);
-          border-radius: 3px;
-        }
+          ::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 3px;
+          }
 
-        ::-webkit-scrollbar-thumb:hover {
-          background: rgba(59, 130, 246, 0.8);
-        }
-      `}</style>
+          html {
+            scroll-behavior: smooth;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          }
+
+          .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+          }
+
+          /* Professional typography */
+          h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            letter-spacing: -0.025em;
+          }
+
+          p {
+            line-height: 1.6;
+          }
+        `}</style>
     </div>
   );
 }
