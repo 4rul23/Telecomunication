@@ -1,103 +1,148 @@
-import Image from "next/image";
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import AuthorProfile from "../components/AuthorProfile";
+import TopNavigation from "../components/TopNavigation";
+import LeftSidebar from "../components/LeftSidebar";
+import ImageDisplay from "../components/ImageDisplay";
+import ContentPanel from "../components/ContentPanel";
+import { allFacts } from "../data/factsData-fixed";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [slideDirection, setSlideDirection] = useState(1);
+  const [currentSection, setCurrentSection] = useState(0); // 0: Facts, 1: Profile
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  // Auto-play functionality
+  useEffect(() => {
+    if (isAutoPlay && currentSection === 0) {
+      const interval = setInterval(() => {
+        setSlideDirection(1);
+        setCurrentSlide((prev) => (prev + 1) % allFacts.length);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [currentSlide, isAutoPlay, currentSection]);
+
+  const nextSlide = () => {
+    if (currentSection === 0) {
+      setSlideDirection(1);
+      setCurrentSlide((prev) => (prev + 1) % allFacts.length);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSection === 0) {
+      setSlideDirection(-1);
+      setCurrentSlide((prev) => (prev - 1 + allFacts.length) % allFacts.length);
+    }
+  };
+
+  const handleSlideChange = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const handleSectionChange = (section) => {
+    setCurrentSection(section);
+    setCurrentSlide(0);
+  };
+
+  const handleAutoPlayToggle = () => {
+    setIsAutoPlay(!isAutoPlay);
+  };
+
+  const currentItem = allFacts[currentSlide];
+  const sectionTitle = "5G MIMO & PROFESIONAL TELEKOMUNIKASI INDONESIA";
+
+  return (
+    <div className="h-screen w-screen bg-gradient-to-br from-slate-950 to-blue-950 text-white overflow-hidden" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+      {/* Simple Background Effects */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/20 to-transparent"></div>
+      </div>
+
+      {/* Top Navigation */}
+      <TopNavigation
+        currentSection={currentSection}
+        onSectionChange={handleSectionChange}
+        isAutoPlay={isAutoPlay}
+        onAutoPlayToggle={handleAutoPlayToggle}
+      />
+
+      {/* Main Content */}
+      <div className="relative h-[calc(100vh-5rem)]">
+        <AnimatePresence mode="wait">
+          {currentSection === 0 ? (
+            <motion.div
+              key="facts"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6 }}
+              className="grid grid-cols-12 h-full"
+            >
+              <LeftSidebar
+                currentSlide={currentSlide}
+                currentData={allFacts}
+                currentItem={currentItem}
+                onSlideChange={handleSlideChange}
+                onPrevSlide={prevSlide}
+                onNextSlide={nextSlide}
+                slideDirection={slideDirection}
+                setSlideDirection={setSlideDirection}
+              />
+
+              <ImageDisplay
+                currentSlide={currentSlide}
+                currentItem={currentItem}
+                slideDirection={slideDirection}
+                onPrevSlide={prevSlide}
+                onNextSlide={nextSlide}
+              />
+
+              <ContentPanel
+                currentSlide={currentSlide}
+                currentItem={currentItem}
+                currentData={allFacts}
+                sectionTitle={sectionTitle}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="profile"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.8 }}
+              className="h-full bg-gradient-to-br from-black/80 to-slate-900/80 backdrop-blur-xl"
+            >
+              <AuthorProfile />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Custom CSS */}
+      <style jsx>{`
+        /* Simple scrollbar */
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: rgba(15, 23, 42, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: rgba(59, 130, 246, 0.6);
+          border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: rgba(59, 130, 246, 0.8);
+        }
+      `}</style>
     </div>
   );
 }
