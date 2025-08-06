@@ -104,6 +104,32 @@ const AuthorProfile = () => {
       birthDate: "7 Juni 2007",
       motto: "Tetaplah fokus mengejar impian, karena sukses tidak selalu di ukur dari pendidikan, tapi juga dari usaha",
       description: "Siswa SMK Telkom Makassar yang memiliki semangat tinggi dalam mencapai cita-cita di bidang teknologi."
+    },
+    {
+      id: 5,
+      name: "MUHAMMAD FAYRUZ IMTIYAZ AL GHAZALI",
+      role: "TEAM MEMBER",
+      specialization: "Telecommunications Student",
+      class: "XII TEL",
+      nis: "2024.12.005",
+      image: "/member/Fayruz.png",
+      birthPlace: "Sorowako",
+      birthDate: "29 Januari 2008",
+      motto: "Mengubah ide sederhana menjadi karya yang penuh makna",
+      description: "Siswa SMK Telkom Makassar yang kreatif dalam mengembangkan ide-ide inovatif di bidang telekomunikasi."
+    },
+    {
+      id: 6,
+      name: "MOH.FARID AKBAR",
+      role: "TEAM MEMBER",
+      specialization: "Telecommunications Student",
+      class: "XII TEL",
+      nis: "2024.12.006",
+      image: "/member/Farid.png",
+      birthPlace: "Makassar",
+      birthDate: "21 Mei 2008",
+      motto: "Tetaplah beribadah dimana pun kau berada",
+      description: "Siswa SMK Telkom Makassar yang menjunjung tinggi nilai-nilai keagamaan dalam menuntut ilmu."
     }
   ];
 
@@ -372,7 +398,7 @@ const AuthorProfile = () => {
             className="border border-blue-500/30 p-3 bg-blue-600/80 text-white backdrop-blur-sm mt-auto"
           >
             <p className="text-xs font-mono uppercase tracking-wider" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
-              &gt;&gt; 4 TEAM MEMBERS
+              &gt;&gt; 6 TEAM MEMBERS
             </p>
           </motion.div>
         </motion.div>
