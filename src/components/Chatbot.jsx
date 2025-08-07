@@ -20,30 +20,21 @@ const Chatbot = () => {
     {
       id: 1,
       type: 'bot',
-      message: 'SYSTEM_INIT >> TelecomBot v1.0 ONLINE | Halo! Saya asisten virtual XII TEL SMK Telkom Makassar.',
+      message: 'SYSTEM_INIT >> TelecomAI v2.0 ONLINE | Halo! Saya AI assistant telekomunikasi. Powered by Kimi-K2.',
       timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
     }
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [conversationHistory, setConversationHistory] = useState([]);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Bot responses
-  const botResponses = {
-    '5g': 'INFO_5G >> Teknologi 5G adalah generasi kelima jaringan seluler dengan kecepatan tinggi dan latensi rendah.',
-    'mimo': 'INFO_MIMO >> Multiple Input Multiple Output menggunakan array antena untuk spatial multiplexing.',
-    'beamforming': 'INFO_BEAMFORMING >> Teknik adaptive antenna yang mengarahkan sinyal RF ke lokasi spesifik.',
-    'smk telkom': 'INFO_SCHOOL >> SMK Telkom Makassar - Pusat Excellence bidang Telekomunikasi & IT.',
-    'xii tel': 'INFO_CLASS >> Kelas XII TEL - Spesialisasi Teknik Telekomunikasi.',
-    'default': 'ERROR_404 >> Query tidak dikenali. Available topics: [5G, MIMO, Beamforming, SMK_Telkom, XII_TEL].'
-  };
-
   const quickActions = [
-    { icon: Signal, text: '5G_TECH', action: '5g' },
-    { icon: Antenna, text: 'MIMO_SYS', action: 'mimo' },
-    { icon: Radio, text: 'BEAMFORM', action: 'beamforming' },
-    { icon: Network, text: 'XII_TEL', action: 'xii tel' }
+    { icon: Signal, text: '5G_OVERVIEW', action: 'Jelaskan teknologi 5G dan aplikasinya dalam telekomunikasi' },
+    { icon: Antenna, text: 'MIMO_SYS', action: 'Bagaimana teknologi MIMO bekerja dalam komunikasi wireless?' },
+    { icon: Radio, text: 'BEAMFORM', action: 'Apa itu beamforming dan bagaimana meningkatkan kualitas sinyal?' },
+    { icon: Network, text: 'NETWORK_ARCH', action: 'Jelaskan arsitektur jaringan telekomunikasi modern' }
   ];
 
   useEffect(() => {
@@ -68,26 +59,67 @@ const Chatbot = () => {
     setInputMessage('');
     setIsTyping(true);
 
-    setTimeout(() => {
-      const lowerMessage = messageText.toLowerCase();
-      let response = botResponses.default;
+    try {
+      // Update conversation history
+      const newHistory = [
+        ...conversationHistory,
+        { role: 'user', content: messageText }
+      ].slice(-10); // Keep last 10 messages for context
 
-      Object.keys(botResponses).forEach(key => {
-        if (key !== 'default' && lowerMessage.includes(key)) {
-          response = botResponses[key];
-        }
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: messageText,
+          conversationHistory: newHistory.slice(0, -1) // Don't include current message
+        }),
       });
 
-      const botMessage = {
+      const data = await response.json();
+
+      let botResponse;
+      if (data.success) {
+        botResponse = {
+          id: Date.now() + 1,
+          type: 'bot',
+          message: `AI_RESPONSE >> ${data.message}`,
+          timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+        };
+
+        // Update conversation history with both user and bot messages
+        setConversationHistory([
+          ...newHistory,
+          { role: 'assistant', content: data.message }
+        ].slice(-10));
+
+      } else {
+        // Fallback response for errors
+        botResponse = {
+          id: Date.now() + 1,
+          type: 'bot',
+          message: data.error || 'CONNECTION_ERROR >> Unable to process request. Please try again.',
+          timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+        };
+      }
+
+      setMessages(prev => [...prev, botResponse]);
+
+    } catch (error) {
+      console.error('Chat error:', error);
+
+      const errorResponse = {
         id: Date.now() + 1,
         type: 'bot',
-        message: response,
+        message: 'NETWORK_ERROR >> Connection timeout. Our telecommunications systems are experiencing high traffic.',
         timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
       };
 
-      setMessages(prev => [...prev, botMessage]);
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const handleQuickAction = (action) => {
@@ -97,7 +129,11 @@ const Chatbot = () => {
   const toggleChatbot = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+      setTimeout(() => {
+        inputRef.current?.focus();
+        // Add longer delay for scroll to work properly
+        setTimeout(() => scrollToBottom(), 200);
+      }, 100);
     }
   };
 
@@ -157,7 +193,7 @@ const Chatbot = () => {
             onClick={toggleChatbot}
           >
             <motion.div
-              className="bg-black/90 backdrop-blur-sm border border-blue-500/30 shadow-2xl overflow-hidden w-[600px] h-[450px] max-w-[85vw] max-h-[75vh]"
+              className="bg-black/90 backdrop-blur-sm border border-blue-500/30 shadow-2xl w-[600px] h-[450px] max-w-[85vw] max-h-[75vh] flex flex-col"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -166,7 +202,7 @@ const Chatbot = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="bg-black border-b border-blue-500/20 p-3 flex items-center justify-between sticky top-0 z-10">
+              <div className="flex-shrink-0 bg-black border-b border-blue-500/20 p-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <motion.div
                     className="w-6 h-6 bg-gray-900 border border-blue-500/30 flex items-center justify-center"
@@ -183,7 +219,7 @@ const Chatbot = () => {
                   </motion.div>
                   <div>
                     <div className="font-bold text-blue-300 text-xs uppercase tracking-wider">TELECOM_BOT.SYS</div>
-                    <div className="text-xs text-blue-500/80 uppercase tracking-wider font-mono">ONLINE • XII TEL</div>
+                    <div className="text-xs text-blue-500/80 uppercase tracking-wider font-mono">ONLINE • AI-POWERED</div>
                   </div>
                 </div>
 
@@ -200,12 +236,7 @@ const Chatbot = () => {
               </div>
 
               {/* Chat Content */}
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="h-full flex flex-col"
-              >
+              <div className="flex flex-col flex-1 min-h-0">
                 {/* Messages Area */}
                 <div className="flex-1 p-4 overflow-y-auto space-y-3">
                   {messages.map((msg) => (
@@ -232,13 +263,13 @@ const Chatbot = () => {
                             </div>
 
                             <div
-                              className={`px-3 py-2 border text-xs leading-relaxed ${
+                              className={`px-3 py-2 border text-xs leading-relaxed break-words ${
                                 msg.type === 'user'
                                   ? 'bg-black border-blue-500/30 text-blue-300'
                                   : 'bg-gray-900/80 text-blue-200 border-blue-500/20'
                               }`}
                             >
-                              <p>{msg.message}</p>
+                              <p className="whitespace-pre-wrap">{msg.message}</p>
                               <div className={`text-xs mt-1 font-mono uppercase tracking-wider ${
                                 msg.type === 'user' ? 'text-blue-500/60' : 'text-blue-400/60'
                               }`}>
@@ -290,7 +321,7 @@ const Chatbot = () => {
                     </div>
 
                     {/* Quick Actions */}
-                    <div className="p-3 border-t border-blue-500/20 bg-black/60">
+                    <div className="flex-shrink-0 p-3 border-t border-blue-500/20 bg-black/60">
                       <div className="text-xs text-blue-400 mb-2 font-mono uppercase tracking-wider">QUICK_ACCESS:</div>
                       <div className="grid grid-cols-2 gap-1">
                         {quickActions.map((action, index) => (
@@ -309,7 +340,7 @@ const Chatbot = () => {
                     </div>
 
                     {/* Input Area */}
-                    <div className="p-3 border-t border-blue-500/20 bg-black/60">
+                    <div className="flex-shrink-0 p-3 border-t border-blue-500/20 bg-black/60">
                       <div className="flex gap-2">
                         <input
                           ref={inputRef}
@@ -331,7 +362,7 @@ const Chatbot = () => {
                         </button>
                       </div>
                     </div>
-                  </motion.div>
+                </div>
             </motion.div>
           </motion.div>
         )}

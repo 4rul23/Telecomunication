@@ -130,6 +130,19 @@ const AuthorProfile = () => {
       birthDate: "21 Mei 2008",
       motto: "Tetaplah beribadah dimana pun kau berada",
       description: "Siswa SMK Telkom Makassar yang menjunjung tinggi nilai-nilai keagamaan dalam menuntut ilmu."
+    },
+    {
+      id: 7,
+      name: "Farrel Sebastian Fritzwel",
+      role: "TEAM MEMBER",
+      specialization: "Telecommunications Student",
+      class: "XII TEL",
+      nis: "2024.12.006",
+      image: "/member/Farrel.png",
+      birthPlace: "Makassar",
+      birthDate: "04 Mei 2008",
+      motto: "Berjuang dalam diam, menang dalam waktu.",
+      description: "Siswa SMK Telkom Makassar yang menjunjung tinggi nilai-nilai keagamaan dalam menuntut ilmu."
     }
   ];
 

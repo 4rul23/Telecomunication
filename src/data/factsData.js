@@ -3,7 +3,7 @@ export const allFacts = [
     title: "JARINGAN 5G MENGGUNAKAN MIMO UNTUK KECEPATAN SUPER",
     subtitle: "Teknologi Massive MIMO Menghadirkan Era Konektivitas Ultra-Cepat",
     description: "Salah satu teknologi kunci di balik kecepatan 5G adalah Massive MIMO (Multiple Input, Multiple Output). Ini berarti stasiun pangkalan 5G memiliki puluhan hingga ratusan antena yang bisa mengirim dan menerima banyak sinyal secara bersamaan, menciptakan 'jalur' data yang lebih banyak.",
-    fullDescription: "Massive MIMO merupakan teknologi revolusioner yang menggunakan array antena dengan puluhan hingga ratusan elemen untuk menciptakan multiple jalur data secara simultan. Setiap antena dapat mengirim dan menerima sinyal independen, memungkinkan stasiun pangkalan 5G melayani banyak pengguna sekaligus dengan kecepatan optimal. Teknologi ini menggunakan beamforming adaptif dan spatial multiplexing untuk memaksimalkan efisiensi spektral dan mengurangi interferensi antar pengguna.",
+    fullDescription: "Massive MIMO menggunakan array antena dengan puluhan hingga ratusan elemen untuk menciptakan multiple jalur data simultan. Teknologi ini memungkinkan stasiun pangkalan 5G melayani banyak pengguna sekaligus dengan kecepatan optimal melalui beamforming adaptif dan spatial multiplexing untuk memaksimalkan efisiensi spektral.",
     icon: "📡",
     image: "/mimo.png",
     year: "2021 - Sekarang",
